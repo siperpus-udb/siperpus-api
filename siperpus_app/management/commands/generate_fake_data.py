@@ -11,21 +11,21 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         fake = Faker()
 
-        for _ in range(5):
+        for _ in range(10):
             Buku.objects.create(
                 nama=fake.sentence(nb_words=3),
                 harga=fake.random_int(50000, 200000, 5000),
                 stok=fake.random_int(10, 1000, 8)
             )
 
-        for _ in range(5):
+        for _ in range(10):
             Penerbit.objects.create(
-                nama=fake.name(),
+                nama=fake.company(),
                 alamat=fake.address(),
                 nohp=fake.phone_number(),
             )
 
-        for _ in range(5):
+        for _ in range(10):
             BukuMasuk.objects.create(
                 idbuku=Buku.objects.order_by('?').first(),  # Randomly select a Buku
                 idpenerbit=Penerbit.objects.order_by('?').first(),  # Randomly select a Penerbit

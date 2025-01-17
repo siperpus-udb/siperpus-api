@@ -41,7 +41,7 @@ class BookSerializer(serializers.HyperlinkedModelSerializer):
 
         ]
 
-class AuthorSerializer(serializers.HyperlinkedModelSerializer):
+class PublisherSerializer(serializers.HyperlinkedModelSerializer):
     _links = serializers.SerializerMethodField()
 
     class Meta:
@@ -53,25 +53,25 @@ class AuthorSerializer(serializers.HyperlinkedModelSerializer):
         return [
             {
                 "rel": "self",
-                "href": reverse('author-list', request=request),
+                "href": reverse('publisher-list', request=request),
                 "action": "POST",
                 "types": ["application/json"]
             },
             {
                 "rel": "self",
-                "href": reverse('author-detail', kwargs={'pk': obj.pk} ,request=request),
+                "href": reverse('publisher-detail', kwargs={'pk': obj.pk} ,request=request),
                 "action": "GET",
                 "types": ["application/json"]
             },
             {
                 "rel": "self",
-                "href": reverse('author-detail', kwargs={'pk': obj.pk}, request=request),
+                "href": reverse('publisher-detail', kwargs={'pk': obj.pk}, request=request),
                 "action": "PUT",
                 "types": ["application/json"]
             },
             {
                 "rel": "self",
-                "href": reverse('author-detail', kwargs={'pk': obj.pk}, request=request),
+                "href": reverse('publisher-detail', kwargs={'pk': obj.pk}, request=request),
                 "action": "DELETE",
                 "types": ["application/json"]
             }
@@ -86,7 +86,7 @@ class NewBookSerializer(serializers.HyperlinkedModelSerializer):
     )
     idpenerbit = serializers.HyperlinkedRelatedField(
         queryset=Penerbit.objects.all(),
-        view_name='author-detail',
+        view_name='publisher-detail',
         lookup_field='pk',
         required=True
     )

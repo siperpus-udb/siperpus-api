@@ -4,7 +4,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from siperpus_app.models import Buku, Penerbit, BukuMasuk
-from siperpus_app.serializers import BookSerializer, AuthorSerializer, NewBookSerializer
+from siperpus_app.serializers import BookSerializer, PublisherSerializer, NewBookSerializer
 
 class BookList(APIView):
     def post(self, request):
@@ -47,9 +47,9 @@ class BookDetail(APIView):
         books.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
-class AuthorList(APIView):
+class PublisherList(APIView):
     def post(self, request):
-        authors = AuthorSerializer(data=request.data, context={'request': request})
+        authors = PublisherSerializer(data=request.data, context={'request': request})
         if authors.is_valid():
             authors.save()
             return Response(authors.data, status=status.HTTP_201_CREATED)
@@ -58,12 +58,12 @@ class AuthorList(APIView):
 
     def get(self, request):
         authors = Penerbit.objects.all()
-        serializer = AuthorSerializer(authors, many=True, context={'request': request})
+        serializer = PublisherSerializer(authors, many=True, context={'request': request})
         return Response({
-            "authors": serializer.data,
+            "publishers": serializer.data,
         }, status.HTTP_200_OK)
 
-class AuthorDetail(APIView):
+class PublisherDetail(APIView):
     def get_object(self, pk):
         try:
             return Penerbit.objects.get(pk=pk)
@@ -72,12 +72,12 @@ class AuthorDetail(APIView):
 
     def get(self, request, pk):
         authors = self.get_object(pk)
-        serializer = AuthorSerializer(authors)
+        serializer = PublisherSerializer(authors)
         return Response(serializer.data, status.HTTP_200_OK)
 
     def put(self, request, pk):
         authors = self.get_object(pk)
-        serializer = AuthorSerializer(authors, data=request.data, context={'request': request})
+        serializer = PublisherSerializer(authors, data=request.data, context={'request': request})
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_200_OK)
