@@ -32,7 +32,11 @@ pipenv install
 ```bash
 python manage.py migrate
 ```
-6. **Run the project**
+6. **Insert dummy data**
+```bash
+python manage.py generate_fake_data
+```
+7 **Run the project**
 ```bash
 python manage.py runserver 
 ```

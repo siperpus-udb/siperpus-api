@@ -80,15 +80,15 @@ class AuthorSerializer(serializers.HyperlinkedModelSerializer):
 class NewBookSerializer(serializers.HyperlinkedModelSerializer):
     idbuku = serializers.HyperlinkedRelatedField(
         queryset=Buku.objects.all(),
-        view_name='book-detail',  # Ensure this matches the URL name for Buku
+        view_name='book-detail',
         lookup_field='pk',
-        required=True  # Ensure this field is required
+        required=True
     )
     idpenerbit = serializers.HyperlinkedRelatedField(
         queryset=Penerbit.objects.all(),
-        view_name='author-detail',  # Ensure this matches the URL name for Penerbit
+        view_name='author-detail',
         lookup_field='pk',
-        required=True  # Ensure this field is required
+        required=True
     )
 
     _links = serializers.SerializerMethodField()

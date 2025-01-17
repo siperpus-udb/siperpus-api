@@ -19,7 +19,7 @@ class BookList(APIView):
         books = Buku.objects.all()
         serializer = BookSerializer(books, many=True, context={'request': request})
         return Response({
-            "buku": serializer.data,
+            "books": serializer.data,
         }, status.HTTP_200_OK)
 
 class BookDetail(APIView):
@@ -60,7 +60,7 @@ class AuthorList(APIView):
         authors = Penerbit.objects.all()
         serializer = AuthorSerializer(authors, many=True, context={'request': request})
         return Response({
-            "penerbit": serializer.data,
+            "authors": serializer.data,
         }, status.HTTP_200_OK)
 
 class AuthorDetail(APIView):
@@ -96,17 +96,13 @@ class NewBookList(APIView):
             newBooks.save()
             return Response(newBooks.data, status=status.HTTP_201_CREATED)
 
-            # Print request data and errors for debugging
-        print(f"Request Data: {request.data}")
-        print(f"Errors: {newBooks.errors}")
-
         return Response(newBooks.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def get(self, request):
         newBooks = BukuMasuk.objects.all()
         serializer = NewBookSerializer(newBooks, many=True, context={'request': request})
         return Response({
-            "bukumasuk": serializer.data,
+            "new-books": serializer.data,
         }, status.HTTP_200_OK)
 
 class NewBookDetail(APIView):
