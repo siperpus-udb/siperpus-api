@@ -3,7 +3,7 @@ from rest_framework.reverse import reverse
 
 from siperpus_app.models import Buku
 
-class BukuSerializer(serializers.HyperlinkedModelSerializer):
+class BookSerializer(serializers.HyperlinkedModelSerializer):
     _links = serializers.SerializerMethodField()
 
     class Meta:
